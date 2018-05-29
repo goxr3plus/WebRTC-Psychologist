@@ -1,3 +1,6 @@
+
+console.log("main.js called");
+
 function hasUserMedia() {
   navigator.getUserMedia = navigator.getUserMedia ||
     navigator.webkitGetUserMedia || navigator.mozGetUserMedia ||
@@ -12,10 +15,8 @@ function hasRTCPeerConnection() {
 }
 
 //Define variables
-var yourVideo = document.querySelector(''#
-    yours ''),
-  theirVideo = document.querySelector(''#
-    theirs ''),
+var yourVideo = document.querySelector('#yours'),
+  theirVideo = document.querySelector('#theirs'),
   yourConnection, theirConnection;
 
 //Check if user media is supported
