@@ -41,6 +41,7 @@ if (hasUserMedia()) {
 
 //Start Peer Connection
 function startPeerConnection(stream) {
+  console.log("Starting peer connection...");
   var configuration = {
     "iceServers": [{
       "url": "stun:stun.1.google.com:19302"
@@ -53,9 +54,11 @@ function startPeerConnection(stream) {
   yourConnection.addStream(stream);
   theirConnection.onaddstream = function(e) {
     theirVideo.srcObject = e.stream;
+    console.log("Their Connection starting streaming...");
   };
 
   // Setup ice handling
+  console.log("Setting up ice handling");
   yourConnection.onicecandidate = function(event) {
     if (event.candidate) {
       theirConnection.addIceCandidate(new RTCIceCandidate(event.candidate));
@@ -67,12 +70,15 @@ function startPeerConnection(stream) {
     }
   };
   // Begin the offer
+  console.log("Beggining the offer");
   yourConnection.createOffer(function(offer) {
+    console.log("Created offer for your connection");
     yourConnection.setLocalDescription(offer);
     theirConnection.setRemoteDescription(offer);
     theirConnection.createAnswer(function(offer) {
       theirConnection.setLocalDescription(offer);
       yourConnection.setRemoteDescription(offer);
+      console.log("Created answer for their connection");
     });
   });
 };
