@@ -108,15 +108,15 @@ wss.on('connection', function(connection) {
   });
 
   //connection.send('Hello World');
-  connection.on('close',
-    function() {
-      if (connection.name) {
-        delete users[connection.name];
+  connection.on('close', function() {
+    if (connection.name) {
+      delete users[connection.name];
 
-        console.log("Disconnecting user from : ",
-          connection.otherName);
+      if (connection.otherName) {
+        console.log("Disconnecting user from : ", connection.otherName);
         var conn = users[connection.otherName];
         conn.otherName = null;
+
         if (conn != null) {
           sendTo(conn, {
             type: "leave"
